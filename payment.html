@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment | Harbour Health Clinic</title>
+<style>
+  :root { --bg: #e9f0ed; --surface: #fbfcfa; --text: #17312d; --muted: #61736e; --border: #cbdad5; --accent: #176b62; --soft-accent: #dcece7; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 32px 20px; background: radial-gradient(circle at top left, #d8ebe5 0, transparent 34%), var(--bg); color: var(--text); font-family: 'Trebuchet MS', system-ui, sans-serif; line-height: 1.5; }
+  .container { max-width: 980px; margin: 0 auto; background: var(--surface); border: 1px solid var(--border); box-shadow: 0 18px 45px rgba(30, 66, 59, 0.09); padding: 40px clamp(24px, 5vw, 64px) 48px; }
+  .eyebrow { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 1.4px; margin: 0 0 10px; text-transform: uppercase; }
+  h1, h2 { font-family: Georgia, serif; font-weight: 500; }
+  h1 { font-size: clamp(32px, 5vw, 48px); margin: 0 0 8px; }
+  h2 { font-size: 21px; margin: 0; }
+  .subtitle { color: var(--muted); margin: 0 0 24px; font-size: 15px; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 0 0 28px; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 32px; }
+  .step { border-top: 3px solid var(--border); color: var(--muted); padding-top: 10px; font-size: 13px; }
+  .step.complete { border-color: var(--accent); color: var(--accent); }
+  .step.current { border-color: var(--text); color: var(--text); font-weight: 700; }
+  .section { border-top: 1px solid var(--border); margin-top: 28px; padding-top: 26px; }
+  .section-heading { align-items: baseline; display: flex; gap: 12px; margin: 0 0 16px; }
+  .section-number { color: var(--accent); font-size: 13px; font-weight: 700; }
+  .summary { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; }
+  .summary div { border-bottom: 1px solid var(--border); padding: 8px 0; }
+  dt { color: var(--muted); font-size: 13px; }
+  dd { margin: 2px 0 0; }
+  .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  label { font-size: 14px; font-weight: 500; }
+  input, select, textarea { width: 100%; min-height: 46px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 3px; background: #eef2f0; color: var(--muted); font: inherit; }
+  textarea { min-height: 110px; resize: vertical; background: var(--surface); color: var(--text); }
+  input:disabled, select:disabled { cursor: not-allowed; opacity: 0.75; }
+  .payment-note { background: var(--soft-accent); color: var(--accent); font-size: 13px; margin: 8px 0 24px; padding: 10px 12px; }
+  .form-footer { align-items: center; border-top: 1px solid var(--border); display: flex; gap: 20px; justify-content: space-between; margin-top: 30px; padding-top: 24px; }
+  button { background: #0fae6c; border: 0; border-radius: 3px; color: #fff; font: inherit; padding: 14px 24px; }
+  .optional { color: var(--muted); font-size: 13px; }
+  @media (max-width: 560px) { body { padding: 0; } .container { border-left: 0; border-right: 0; padding: 32px 20px 36px; } .summary { grid-template-columns: 1fr; } .form-footer { align-items: stretch; flex-direction: column; } button { width: 100%; } }
+</style>
+</head>
+<body>
+<main class="container">
+  <p class="eyebrow">Harbour Health Clinic</p>
+  <h1>Complete payment</h1>
+  <p class="subtitle">Review your online consultation before payment.</p>
+  <hr class="divider">
+
+  <div class="steps" aria-label="Booking progress">
+    <div class="step complete">01 · Patient details</div>
+    <div class="step complete">02 · Appointment</div>
+    <div class="step current">03 · Payment</div>
+  </div>
+
+  <section>
+    <div class="section-heading"><span class="section-number">03</span><h2>Payment details</h2></div>
+    <p class="payment-note">This is a prototype payment screen. Payment controls are shown for the full process but are not active yet.</p>
+    <dl class="summary">
+      <div><dt>Consultation</dt><dd>Online consultation</dd></div>
+      <div><dt>Doctor's fee</dt><dd id="doctor-fee">£45.00</dd></div>
+    </dl>
+  </section>
+
+  <section class="section">
+    <div class="field">
+      <label for="payment-method">Payment method</label>
+      <select id="payment-method" disabled>
+        <option>Select payment method</option>
+        <option>Credit / Debit card</option>
+        <option>Bank transfer</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="card-number">Card number</label>
+      <input id="card-number" type="text" placeholder="0000 0000 0000 0000" disabled>
+    </div>
+    <div class="summary">
+      <div class="field"><label for="expiry">Expiry date</label><input id="expiry" type="text" placeholder="MM / YY" disabled></div>
+      <div class="field"><label for="security-code">Security code</label><input id="security-code" type="text" placeholder="CVC" disabled></div>
+    </div>
+    <div class="field">
+      <label for="notes">Notes <span class="optional">(optional)</span></label>
+      <textarea id="notes" name="notes" placeholder="Add a note for the clinic"></textarea>
+    </div>
+  </section>
+
+  <div class="form-footer">
+    <p class="optional">Only notes are available in this prototype.</p>
+    <button type="button" id="pay-button" >Pay $45.00</button>
+  </div>
+</main>
+</body>
+<script src="script.js"></script>
+</html>

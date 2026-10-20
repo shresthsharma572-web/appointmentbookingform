@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book an appointment</title>
+<style>
+  :root {
+    --bg: #e9f0ed;
+    --surface: #fbfcfa;
+    --text: #17312d;
+    --muted: #61736e;
+    --border: #cbdad5;
+    --accent: #176b62;
+    --accent-hover: #0f514a;
+    --soft-accent: #dcece7;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: radial-gradient(circle at top left, #d8ebe5 0, transparent 34%), var(--bg);
+    color: var(--text);
+    font-family: 'Trebuchet MS', system-ui, sans-serif;
+    line-height: 1.5;
+    padding: 32px 20px;
+  }
+
+  .container {
+    max-width: 980px;
+    margin: 0 auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 45px rgba(30, 66, 59, 0.09);
+    padding: 40px clamp(24px, 5vw, 64px) 48px;
+  }
+
+  .eyebrow { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 1.4px; margin: 0 0 10px; text-transform: uppercase; }
+
+  h1 {
+    font-family: Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(32px, 5vw, 48px);
+    margin: 0 0 8px;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    margin: 0 0 24px;
+    font-size: 15px;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0 0 28px;
+  }
+
+  .section { border-top: 1px solid var(--border); margin-top: 28px; padding-top: 26px; }
+  .section-heading { align-items: baseline; display: flex; gap: 12px; margin: 0 0 16px; }
+  .section-heading h2 { font-family: Georgia, serif; font-size: 21px; font-weight: 500; margin: 0; }
+  .section-number { color: var(--accent); font-size: 13px; font-weight: 700; }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  @media (min-width: 560px) {
+    .field-row.two-up {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  input, select, textarea {
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    min-height: 46px;
+    padding: 10px 12px;
+    width: 100%;
+  }
+
+  textarea { min-height: 92px; resize: vertical; }
+
+  .online-extra-fields,
+  .online-notes-field,
+  .new-patient-fields {
+    display: none;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  .online-extra-fields.visible,
+  .online-notes-field.visible,
+  .new-patient-fields.visible {
+    display: grid;
+  }
+
+  .online-extra-fields .fee-readout {
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(47, 111, 99, 0.15);
+  }
+
+  button {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 14px 24px;
+    cursor: pointer;
+    transition: background 150ms ease;
+  }
+
+  button:hover { background: var(--accent-hover); }
+  .availability-note { background: var(--soft-accent); color: var(--accent-hover); font-size: 13px; margin: 8px 0 0; padding: 10px 12px; }
+  .form-footer { align-items: center; border-top: 1px solid var(--border); display: flex; gap: 20px; justify-content: space-between; margin-top: 30px; padding-top: 24px; }
+  .optional { color: var(--muted); font-size: 13px; }
+
+  @media (max-width: 480px) {
+    body { padding: 0; }
+    .container { border-left: 0; border-right: 0; padding: 32px 20px 36px; }
+    .form-footer { align-items: stretch; flex-direction: column-reverse; }
+    button { width: 100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<main class="container">
+  <p class="eyebrow">Harbour Health Clinic</p>
+  <h1>Book an appointment</h1>
+  <p class="subtitle">Choose a time that works for you and find the right clinician.</p>
+  <hr class="divider">
+
+  <form action="#" method="get">
+    <section>
+      <div class="section-heading"><span class="section-number">01</span><h2>Your details</h2></div>
+      <div class="field-row">
+        <div class="field">
+          <label for="patient-mode">Patient record</label>
+          <select id="patient-mode" name="patient_mode" required>
+            <option value="new" selected>Add new patient</option>
+            <option value="existing">Continue with existing patient</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="firstname">First name</label>
+          <input type="text" id="firstname" name="firstname" required>
+        </div>
+        <div class="field">
+          <label for="lastname">Last name</label>
+          <input type="text" id="lastname" name="lastname" required>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+      </div>
+      <div class="field-row two-up new-patient-fields" id="newPatientFields">
+        <div class="field">
+          <label for="phone">Phone number</label>
+          <input type="tel" id="phone" name="phone">
+        </div>
+        <div class="field">
+          <label for="date_of_birth">Date of birth</label>
+          <input type="date" id="date_of_birth" name="date_of_birth">
+        </div>
+      </div>
+      <div id="gender-field" class="field-row">
+        <div class="field">
+          <label for="gender">Gender</label>
+          <select id="gender" name="gender">
+            <option value="">Select gender</option>
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
+            <option value="Non-binary">Non-binary</option>
+            <option value="Prefer not to say">Prefer not to say</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading"><span class="section-number">02</span><h2>Appointment details</h2></div>
+      <div class="field-row two-up">
+        <div class="field">
+          <label for="appointment-date">Preferred date</label>
+          <input type="date" id="appointment-date" name="appointment_date" required>
+        </div>
+        <div class="field">
+          <label for="appointment-time">Preferred time</label>
+          <input type="time" id="appointment-time" name="appointment_time" required>
+        </div>
+      </div>
+      <div class="field-row two-up">
+        <div class="field">
+          <label for="department">Department</label>
+          <select id="department" name="department" required>
+            <option value="">Select a department</option>
+            
+          </select>
+        </div>
+        <div class="field">
+          <label for="doctor">Next available doctor</label>
+          <select id="doctor" name="doctor" required>
+            <option value="">Select a doctor</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row two-up">
+        <div class="field">
+          <label for="appointment-type">Appointment type</label>
+          <select id="appointment-type" name="appointment_type" required>
+            <option value="" disabled selected>Select appointment type</option>
+            <option value="physical">Physical consultation</option>
+            <option value="online">Online consultation</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="reason">Reason for visit <span class="optional">(optional)</span></label>
+          <textarea id="reason" name="reason" placeholder="Briefly describe what you need help with"></textarea>
+        </div>
+      </div>
+      <p class="availability-note">Online consultations continue to a separate payment step. Physical consultations can be paid at the clinic.</p>
+    </section>
+
+    <div class="form-footer">
+      <p class="optional">Required fields must be completed.</p>
+      <button type="submit">Find appointment</button>
+    </div>
+  </form>
+</main>
+
+</body>
+</html>
+<script src="script.js"></script>
